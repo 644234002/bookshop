@@ -4,9 +4,9 @@
       <div class="row">
         <div v-if="showCart" class="col-md-4 fixed-content">
             <h2>Books in Cart</h2>
-            <h5><b>Total: </b><span class="total-in-cart">Total ฿</span> </h5>
+            <h5><b>Total: </b><span class="total-in-cart">{{computeTotal}} ฿</span> </h5>
             <!-- Cart  -->
-            <Cart :cart="cart"/>
+            <Cart :cart="cart" @increaseCart="increase"/>
            
         </div>
           <div :class="{'col-md-8':showCart}">
@@ -193,7 +193,10 @@ function AddToCart(book){
 }
 
 // Increase
-
+function increase(bookid){
+    var cartIndex = cart.value.findIndex(x => x.bookid === bookid);
+    cart.value[cartIndex].qty++
+}
 
 
 // Decrease
@@ -207,7 +210,15 @@ function AddToCart(book){
 
 
 // Computed : computeTotal
+const computeTotal=computed( () => {
+    var total=0
 
+cart.value.forEach( (cartItem)=>{
+    total=total + (cartItem.qty * cartItem.price)
+})
+
+    return total
+})
 
 
 </script>
