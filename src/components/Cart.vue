@@ -2,7 +2,7 @@
     <div>
         <div v-if="props.cart.length>0" v-for="item in props.cart">
             <!-- CartItem --> 
-            <CartItem :cartItem="item" @increaseCartItem="Increase"/>
+            <CartItem :cartItem="item" @increaseCartItem="Increase" @decreaseCartItem="Decrease" @removeCartItem="Remove"/>
 
             
         </div>
@@ -32,7 +32,14 @@ function Increase(bookid){
 
 
 // Decrease
+function Decrease(bookid){
+    emit('decreaseCart',bookid)
+}
+
 //Homwork
+function Remove(bookid){
+    emit('removeCart',bookid)
+}
 
 
 

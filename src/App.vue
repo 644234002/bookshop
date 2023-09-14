@@ -6,7 +6,7 @@
             <h2>Books in Cart</h2>
             <h5><b>Total: </b><span class="total-in-cart">{{computeTotal}} ฿</span> </h5>
             <!-- Cart  -->
-            <Cart :cart="cart" @increaseCart="increase"/>
+            <Cart :cart="cart" @increaseCart="increase" @decreaseCart="decrease" @removeCart="remove"/>
            
         </div>
           <div :class="{'col-md-8':showCart}">
@@ -200,12 +200,24 @@ function increase(bookid){
 
 
 // Decrease
+function decrease(bookid){
+    var cartIndex = cart.value.findIndex(x => x.bookid === bookid);
+    if (cart.value[cartIndex].qty > 1) {
+        cart.value[cartIndex].qty--;
+    } else {
 
+    }
+}
 
 
 
 // Remove
-
+function remove(bookid) {
+    var cartIndex = cart.value.findIndex(x => x.bookid === bookid);
+    if (cartIndex !== -1) {
+        cart.value.splice(cartIndex, 1);
+    }
+}
 
 
 
